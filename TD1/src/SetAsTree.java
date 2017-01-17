@@ -49,6 +49,15 @@ public class SetAsTree{
 
     // Application specific methods
     public void insert(int v){
+		
+	if(v > this.getVal()){ //après
+		SetAsTree next = this.getRtree();
+		
+	} else if(v < this.getVal()){ //avant
+		SetAsTree next = this.getLtree();
+	}
+		
+
     }   
     public void delete(int v){
     }

@@ -49,16 +49,37 @@ public class SetAsTree{
 
     // Application specific methods
     public void insert(int v){
-		
-	if(v > this.getVal()){ //après
-		SetAsTree next = this.getRtree();
-		
-	} else if(v < this.getVal()){ //avant
-		SetAsTree next = this.getLtree();
+        boolean insertion = false;
+        boolean allreadyHere = false;
+        SetAsTree tmp = this ;
+        while (!insertion && !allreadyHere){
+            if (v > tmp.getVal()){ //insertion en fils droit
+                if (tmp.getRtree() == null){ //fils droit du noeud courant vide
+                    SetAsTree fd = new SetAsTree(v);
+                    tmp.setRtree(fd);
+                    insertion = true;
+                } else if (v < tmp.getRtree().getVal()){ //fils droit du noeud courant non vide et v inférieur
+                    SetAsTree fd = new SetAsTree(v, null, tmp.getRtree());
+                    tmp.setRtree(fd);
+                    insertion = true;
+                } else //fils droit du noeud courant non vide et v supérieur
+                    tmp = tmp.getRtree();
+            } else if(v < tmp.getVal()){ //insertion en fils gauche
+                if (tmp.getLtree() == null){ //fils gauche du noeud courant vide
+                    SetAsTree fg = new SetAsTree(v);
+                    tmp.setLtree(fg);
+                    insertion = true;
+                } else if (v > tmp.getLtree().getVal()){ //fils gauche du noeud courant non vide et v supérieur
+                    SetAsTree fg = new SetAsTree(v, tmp.getLtree(),null);
+                    tmp.setLtree(fg);
+                    insertion = true;
+                } else //fils gauche du noeud courant non vide et v inférieur
+                    tmp = tmp.getLtree();
+            } else
+                allreadyHere = true ;
+        }
 	}
 		
-
-    }   
     public void delete(int v){
     }
     

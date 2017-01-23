@@ -37,8 +37,8 @@ public class FailingTestSetAsTreeJUnit4 {
 
 	@Test(expected = JmlAssertionError.class)
 	public void  testSequence_3() {
-		SetAsTree fg=new SetAsTree(0);
-		SetAsTree t=new SetAsTree(5);
+		SetAsTree fg=new SetAsTree(5);
+		SetAsTree t=new SetAsTree(0);
 		t.setLtree(fg);
 		t.skip();
 	}

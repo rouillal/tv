@@ -36,6 +36,8 @@ public class MainSetAsTree{
         System.out.println(s);
         s.insert(9);
         System.out.println(s);
+        s.delete(2);
+        System.out.println(s);
         
     }
 }

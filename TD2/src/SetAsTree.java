@@ -8,6 +8,7 @@ public class SetAsTree{
     //@ public invariant ((val != null) || (ltree == null && rtree == null));
     //@ public invariant ((ltree == null) || (!ltree.emptySet() && ( ltree.max() < val)));
     //@ public invariant ((rtree == null) || (!rtree.emptySet() && ( rtree.min() > val)));
+    //@ public invariant (this.verify());
     //@ public invariant (* no cycle in the tree *);
       
     // Constructor
@@ -34,13 +35,13 @@ public class SetAsTree{
     public void setVal(Integer val) {
         this.val = val;
     }
-    public /*@ pure helper @*/  SetAsTree getLtree() {
+    public /*@ pure helper @*/ SetAsTree getLtree() {
         return ltree;
     }
     public void setLtree(SetAsTree ltree) {
         this.ltree = ltree;
     }
-    public /*@ pure helper @*/  SetAsTree getRtree() {
+    public /*@ pure helper @*/ SetAsTree getRtree() {
         return rtree;
     }
     public void setRtree(SetAsTree rtree) {
@@ -48,6 +49,7 @@ public class SetAsTree{
     }
 
     // Application specific methods
+    //@ ensures contains(v);
     public void insert(int v){
         boolean insertion = false;
         boolean alreadyHere = false;
@@ -78,8 +80,16 @@ public class SetAsTree{
             } else
                 alreadyHere = true ;
         }
-	}
-		
+        refactor();
+    }   
+
+    private /*@ helper @*/ void refactor(){
+        //nb element / 2 => prendre supérieur si impair
+        //on obtient un noeud => racine
+        //noeud + 1 = fils droit 
+    }
+
+    //@ ensures !contains(v);
     public void delete(int v){
         delete_helper(v);
     }
@@ -98,7 +108,6 @@ public class SetAsTree{
             val = ltree.max();
             ltree.delete_helper(val);
         } 
-
         
         if(rtree != null && rtree.emptySet()){
             rtree = null;
@@ -107,22 +116,30 @@ public class SetAsTree{
             ltree = null;
         }
     }
-
-
     
     // Pure functions used in the specification
     public /*@ pure helper @*/ boolean emptySet(){
          return val == null;
     } 
+    //@ requires !emptySet();
     public /*@ pure helper @*/ int min(){
         if (ltree != null && ltree.getVal() < val){return ltree.min();}
         else return val;
     }    
+    //@ requires !emptySet();
     public /*@ pure helper @*/ int max(){
         if (rtree != null && rtree.getVal() > val){return rtree.max();}
         else return val;
     }
     
+    public /*@  pure helper @*/ boolean contains(int v){
+    	if (val == null) {return false;}
+    	else if (v == val) {return true;}
+    	else if (v > val && (rtree!= null)) {return rtree.contains(v);}
+    	else if (v < val && (ltree!= null)) {return ltree.contains(v);}
+    	else {return false;}
+        }
+
     // Non side-effecting methods
     public /*@ non_null @*/  String toString(){
         String s = "";
@@ -131,6 +148,45 @@ public class SetAsTree{
         if (rtree != null) {s=s+rtree.toString();};
         return s;
     }
+
+    public /*@ pure helper @*/ boolean verify(){        
+        if(ltree != null && rtree != null){
+            if((ltree.size() == rtree.size()) || (ltree.size() == rtree.size() + 1)||(ltree.size() == rtree.size()-1)){
+                return true;
+            }
+        } else if (ltree == null && rtree != null){
+            if (rtree.size() == 1){
+                return true;
+            }
+        } else if(rtree == null && ltree != null){
+            if (ltree.size() == 1){
+                return true;
+            }
+        } else if (rtree == null && ltree == null){
+            return true;
+        }
+
+        return false;
+
+
+    }
+
+    public /*@ pure helper @*/ int size(){ 
+        int size = 1; 
+        if (val == null){
+            return 0;
+        } 
+        else {
+            if (ltree != null){
+                size += ltree.size();
+            } 
+            if (rtree != null){
+                size += rtree.size();
+            }
+            return size; 
+        }
+    }   
+
     public void skip(){ } // useful to test the invariant.
 
 }

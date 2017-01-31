@@ -84,6 +84,8 @@ public class SetAsTree{
     }   
 
     private /*@ helper @*/ void refactor(){
+        int nbElement = this.size();
+        
         //nb element / 2 => prendre supérieur si impair
         //on obtient un noeud => racine
         //noeud + 1 = fils droit 

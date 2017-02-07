@@ -62,7 +62,7 @@ public class TestExplosivesJUnit4 {
 	public void testSequence_1(){ //Prop 1 invalidée
 		try{
 			e =new Explosives();
-			for(int i=0;i<51;i++){
+			for(int i=0;i<49;i++){
 				e.add_incomp("Prod_"+i,"Prod_"+i+51);
 			}
 		} catch(JmlAssertionError e){
@@ -74,7 +74,7 @@ public class TestExplosivesJUnit4 {
 	public void testSequence_2(){ //Prop 2 invalidée
 		try{
 			e =new Explosives();
-			for(int i=0;i<31;i++){
+			for(int i=0;i<30;i++){
 				e.add_assign("Bat_"+i,"Prod_"+i+51);
 			}
 		} catch(JmlAssertionError e){
@@ -115,5 +115,41 @@ public class TestExplosivesJUnit4 {
 				handleJMLAssertionError(e);		
 		}  
 	}
+    
+    @Test
+    public void testSequence_7(){ //Precondition fausse (propriété 3 de l'invariant)
+        try{
+            e =new Explosives();
+            e.add_incomp("Prod_1","Pro_2");
+            
+        } catch(JmlAssertionError e){
+            handleJMLAssertionError(e);
+        }  
+    }
+    
+    @Test
+    public void testSequence_8(){ //Precondition fausse (doublon)
+        try{
+            e =new Explosives();
+            e.add_incomp("Prod_1","Prod_2");
+            e.add_incomp("Prod_1","Prod_2");
+            
+        } catch(JmlAssertionError e){
+            handleJMLAssertionError(e);
+        }
+    }
+    
+    @Test
+    public void testSequence_9(){ //Precondition fausse (doublon)
+        try{
+            e =new Explosives();
+            e.add_assign("Bat_1","Prod_2");
+            e.add_assign("Bat_2","Prod_2");
+            
+        } catch(JmlAssertionError e){
+            handleJMLAssertionError(e);
+        }
+    }
+
 
 }

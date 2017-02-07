@@ -39,7 +39,10 @@ public class Explosives{
       @*/
 
 
-    //@requires (nb_inc >=0 && nb_inc < 48 && prod1.startsWith("Prod") && prod2.startsWith("Prod") && !isAlreadyHere(prod1,prod2) && prod1 !=prod2);
+    //@requires (nb_inc >=0 && nb_inc < 48);
+    //@requires (prod1.startsWith("Prod") && prod2.startsWith("Prod"));
+    //@requires (!isAlreadyHere(prod1,prod2));
+    //@requires (prod1 != prod2);
     public void add_incomp(String prod1, String prod2){
     	incomp[nb_inc][0] = prod1;
     	incomp[nb_inc][1] = prod2;
@@ -49,7 +52,10 @@ public class Explosives{
      }
 
 
-    //@requires (nb_assign >=0 && nb_assign < 29 && bat.startsWith("Bat") && prod.startsWith("Prod") && !isAlreadyInBat(bat,prod) && prodCompInBat(bat,prod));
+    //@requires (nb_assign >=0 && nb_assign < 29);
+    //@requires (bat.startsWith("Bat") && prod.startsWith("Prod"));
+    //@requires (!isAlreadyInBat(prod));
+    //@requires (prodCompInBat(bat,prod));
     public void add_assign(String bat, String prod){
     	assign[nb_assign][0] = bat;
     	assign[nb_assign][1] = prod;
@@ -60,6 +66,8 @@ public class Explosives{
     public void skip(){
     }
 
+    //@requires (prod1.startsWith("Prod") && prod2.startsWith("Prod"));
+    //@requires (prod1 != prod2);
     public boolean isAlreadyHere(String prod1, String prod2){
       for (int i=0;i<nb_inc;i++){
         if(incomp[i][0].equals(prod1) && incomp[i][1].equals(prod2)){
@@ -69,26 +77,70 @@ public class Explosives{
       return false;
     }
 
-    public boolean isAlreadyInBat(String bat, String prod){
+    //@requires (prod.startsWith("Prod"));
+    public boolean isAlreadyInBat(String prod){
       for (int i=0;i<nb_assign;i++){
-        if(assign[i][0].equals(bat) && assign[i][1].equals(prod)){
+        if(assign[i][1].equals(prod)){
           return true;
         }
       }
       return false;
     }
 
+    //@requires (bat.startsWith("Bat") && prod.startsWith("Prod"));
     public boolean prodCompInBat(String bat, String prod){
         for (int i=0; i<nb_assign;i++){
-            if(assign[i][0].equals(bat) && assign[i][1].equals(prod)){
+            if(assign[i][0].equals(bat)){
                 for(int k=0; k<nb_inc;k++){
-                    if(!prod.equals(incomp[k][0]) || !prod.equals(incomp[k][1])){
-                        return true;                
+                    if(assign[i][1].equals(incomp[k][0]) && prod.equals(incomp[k][1])){
+                        return false;
                     }
                 }
             }
         }
-        return false;
+        return true;
+    }
+    
+    //@requires (prod1.startsWith("Prod") && prod2.startsWith("Prod"));
+    //@requires (prod1 != prod2);
+    public boolean compatible(String prod1, String prod2){
+        for (int i=0; i <nb_inc; i++){
+            if(incomp[i][0].equals(prod1) && incomp[i][1].equals(prod2))
+                return false;
+        }
+        return true;
+    }
+    
+    //@requires (prod.startsWith("Prod"));
+    //@requires (!isAlreadyInBat(prod));
+    //@requires (nb_assign >=0 && nb_assign < 29);
+    //@ensures prodCompInBat(\result,prod);
+    public String findBat (String prod){
+        boolean b = false;
+        int cpt = 0;
+        String [] tmp = new String[nb_assign];
+        if (nb_assign == 0)
+            return "Bat_1";
+        else {
+            for (int i=0; i<nb_assign;i++){
+                b = false;
+                for (int j=0; j<tmp.length;j++){
+                    if (assign[i][0].equals(tmp[j])){
+                        b = true;
+                        break;
+                    }
+                }
+                if (!b){
+                    tmp[cpt] = assign[i][0];
+                    cpt++;
+                }
+            }
+            for (int j=0; j<cpt;j++){
+                if (prodCompInBat(tmp[j],prod))
+                    return tmp[j];
+            }
+        }
+        return "Bat_"+(nb_assign+1);
     }
 
 

@@ -26,11 +26,17 @@ run : ../bin/ExplosivesMain.class
 ../bin/TestExplosivesJUnit4Public.class : ../bin/Explosives.class TestExplosivesJUnit4Public.java
 	$(JAVAC) -cp ../bin:$(JMLJUNITCLASSPATH) -d ../bin  TestExplosivesJUnit4Public.java
 
+../bin/TestExplosivesFindBat.class : ../bin/Explosives.class TestExplosivesFindBat.java
+	$(JAVAC) -cp ../bin:$(JMLJUNITCLASSPATH) -d ../bin  TestExplosivesFindBat.java
+
 TestExplosivesJUnit4.run : ../bin/TestExplosivesJUnit4.class
 	 $(JAVA) -cp ../bin:$(JMLJUNITCLASSPATH) TestExplosivesJUnit4
 
 TestExplosivesJUnit4Public.run : ../bin/TestExplosivesJUnit4Public.class
 	 $(JAVA) -cp ../bin:$(JMLJUNITCLASSPATH) TestExplosivesJUnit4Public
+
+TestExplosivesFindBat.run : ../bin/TestExplosivesFindBat.class
+	 $(JAVA) -cp ../bin:$(JMLJUNITCLASSPATH) TestExplosivesFindBat
 
 clean : 
 	$(RM) ../bin/*.class

@@ -1,6 +1,8 @@
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
+import java.util.Random;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.jmlspecs.utils.JmlAssertionError;
@@ -18,10 +20,27 @@ public class TestPrimeJUnit4Param {
 
 	 @Parameters(name="{index}: n={0}")
 		public static Collection<Object[]> params(){
-		return Arrays.asList(
-					new Object[]{7},
-					new Object[]{8}
-					);			
+			ArrayList tmp = new ArrayList();
+			Random r = new Random(1);
+			int j;
+			for(int i=0;i<5;i++){
+				j = r.nextInt();
+				tmp.add(j);
+				System.out.println(i + " : "+j);
+			}
+			return tmp;
+		// return Arrays.asList(
+		// 			new Object[]{21},
+		// 			new Object[]{8},
+		// 			new Object[]{10},
+		// 			new Object[]{2},
+		// 			new Object[]{1},
+		// 			new Object[]{0},
+		// 			new Object[]{7},
+		// 			new Object[]{13},
+		// 			new Object[]{4},
+		// 			new Object[]{19}
+		// 			);			
 		}	
 		
 		@Parameter (value = 0)

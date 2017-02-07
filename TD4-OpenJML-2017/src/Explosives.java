@@ -29,7 +29,7 @@ public class Explosives{
       @           (incomp[i][0]).equals(incomp[j][1]) 
       @              && (incomp[j][0]).equals(incomp[i][1]))); 
       @*/
-    /*@ public invariant // Prop 7 : si un produit A est assigné 
+    /*@ public invariant // Prop 7 : Les produits stockés dans le même bâtiment ne doivent pas être incompatibles
       @ (\forall int i; 0 <= i &&  i < nb_assign; 
       @     (\forall int j; 0 <= j && j < nb_assign; 
       @        (i != j && (assign[i][0]).equals(assign [j][0])) ==>
@@ -39,18 +39,59 @@ public class Explosives{
       @*/
 
 
+    //@requires (nb_inc >=0 && nb_inc < 48 && prod1.startsWith("Prod") && prod2.startsWith("Prod") && !isAlreadyHere(prod1,prod2) && prod1 !=prod2);
     public void add_incomp(String prod1, String prod2){
-	incomp[nb_inc][0] = prod1;
-	incomp[nb_inc][1] = prod2;
-	incomp[nb_inc+1][1] = prod1;
-	incomp[nb_inc+1][0] = prod2;
-	nb_inc = nb_inc+2;
+    	incomp[nb_inc][0] = prod1;
+    	incomp[nb_inc][1] = prod2;
+    	incomp[nb_inc+1][1] = prod1;
+    	incomp[nb_inc+1][0] = prod2;
+      nb_inc = nb_inc+2;
      }
+
+
+    //@requires (nb_assign >=0 && nb_assign < 29 && bat.startsWith("Bat") && prod.startsWith("Prod") && !isAlreadyInBat(bat,prod) && prodCompInBat(bat,prod));
     public void add_assign(String bat, String prod){
-	assign[nb_assign][0] = bat;
-	assign[nb_assign][1] = prod;
-	nb_assign = nb_assign+1;
+    	assign[nb_assign][0] = bat;
+    	assign[nb_assign][1] = prod;
+    	nb_assign = nb_assign+1;
     }
+
+
     public void skip(){
     }
+
+    public boolean isAlreadyHere(String prod1, String prod2){
+      for (int i=0;i<nb_inc;i++){
+        if(incomp[i][0].equals(prod1) && incomp[i][1].equals(prod2)){
+          return true;
+        }
+      }
+      return false;
+    }
+
+    public boolean isAlreadyInBat(String bat, String prod){
+      for (int i=0;i<nb_assign;i++){
+        if(assign[i][0].equals(bat) && assign[i][1].equals(prod)){
+          return true;
+        }
+      }
+      return false;
+    }
+
+    public boolean prodCompInBat(String bat, String prod){
+        for (int i=0; i<nb_assign;i++){
+            if(assign[i][0].equals(bat) && assign[i][1].equals(prod)){
+                for(int k=0; k<nb_inc;k++){
+                    if(!prod.equals(incomp[k][0]) || !prod.equals(incomp[k][1])){
+                        return true;                
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+
+
+
 }

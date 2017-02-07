@@ -44,7 +44,7 @@ public class TestExplosivesJUnit4 {
 	}
 	
 	@Test
-	public void  testSequence_0() {
+	public void  testSequence_0() { //Prop 7 invalidée
 		try{
 			e=new Explosives();
 			e.add_incomp("Prod_Nitro","Prod_Glycerine");
@@ -58,5 +58,62 @@ public class TestExplosivesJUnit4 {
 		}  
 	}
 
+	@Test
+	public void testSequence_1(){ //Prop 1 invalidée
+		try{
+			e =new Explosives();
+			for(int i=0;i<51;i++){
+				e.add_incomp("Prod_"+i,"Prod_"+i+51);
+			}
+		} catch(JmlAssertionError e){
+				handleJMLAssertionError(e);		
+		}  
+	}
+
+	@Test
+	public void testSequence_2(){ //Prop 2 invalidée
+		try{
+			e =new Explosives();
+			for(int i=0;i<31;i++){
+				e.add_assign("Bat_"+i,"Prod_"+i+51);
+			}
+		} catch(JmlAssertionError e){
+				handleJMLAssertionError(e);		
+		}  
+	}
+
+	@Test
+	public void testSequence_3(){ //Prop 3 invalidée
+		try{
+			e =new Explosives();
+			e.add_incomp("Proud_1","Proud_2");
+			
+		} catch(JmlAssertionError e){
+				handleJMLAssertionError(e);		
+		}  
+	}
+
+
+	@Test
+	public void testSequence_4(){ //Prop 4 invalidée
+		try{
+			e =new Explosives();
+			e.add_assign("Baat_1","Proud_2");
+			
+		} catch(JmlAssertionError e){
+				handleJMLAssertionError(e);		
+		}  
+	}
+
+	@Test
+	public void testSequence_5(){ //Prop 5 invalidée
+		try{
+			e =new Explosives();
+			e.add_incomp("Prod_1","Prod_1");
+			
+		} catch(JmlAssertionError e){
+				handleJMLAssertionError(e);		
+		}  
+	}
 
 }

@@ -11,7 +11,9 @@ public class MainSetAsTree{
 	System.out.println(s);
 	s.insert(1);
 	System.out.println(s);
-	s.delete(5);
+	s.insert(3);
 	System.out.println(s);
+        s.insert(8);
+        System.out.println(s);
     }
 }

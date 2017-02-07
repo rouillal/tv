@@ -80,14 +80,25 @@ public class SetAsTree{
             } else
                 alreadyHere = true ;
         }
-        refactor();
+        //refactor();
     }   
 
-    private /*@ helper @*/ void refactor(){
-        //nb element / 2 => prendre supérieur si impair
-        //on obtient un noeud => racine
-        //noeud + 1 = fils droit 
-    }
+//    private /*@ helper @*/ void refactor(){
+//			int nbE = this.size();
+//			int i = (nbE / 2) + 1;
+//			int cpt = 0;
+//			int mini = nbE;
+//			SetAsTree tmp = this;
+//			while (cpt < i){
+//					mini = tmp.min();
+//					tmp.delete(mini);
+//					cpt++;
+//			}
+//			System.out.println("noeud racine "+mini+" i "+i+" cpt "+cpt);
+//        //nb element / 2 => prendre supérieur si impair
+//        //on obtient un noeud => racine
+//        //noeud + 1 = fils droit 
+//    }
 
     //@ ensures !contains(v);
     public void delete(int v){
@@ -115,6 +126,7 @@ public class SetAsTree{
         if(ltree != null && ltree.emptySet()){
             ltree = null;
         }
+				//refactor();
     }
     
     // Pure functions used in the specification

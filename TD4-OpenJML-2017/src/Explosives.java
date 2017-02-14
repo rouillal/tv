@@ -131,13 +131,12 @@ public class Explosives{
                     }
                 }
                 if (!b){
+                    if (prodCompInBat(assign[i][0],prod))
+                      return assign[i][0];
                     tmp[cpt] = assign[i][0];
                     cpt++;
+                    
                 }
-            }
-            for (int j=0; j<cpt;j++){
-                if (prodCompInBat(tmp[j],prod))
-                    return tmp[j];
             }
         }
         return "Bat_"+(nb_assign+1);

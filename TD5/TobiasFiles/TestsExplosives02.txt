@@ -1,0 +1,19 @@
+group TestAssign003[us=true] {
+	Explosives e = new Explosives();
+	@storeProd{1,2};
+	@storeProd{2,1};
+	@storeProd{1,3};
+	@storeProd{2,2};
+} 
+
+group storeProd{
+  e.add_assign(@bats,@prods);
+} 
+
+group bats {
+values = ["Bat1", "Bart2"];
+}
+
+group prods {
+values = ["Prod1", "Prod2", "Prod3" ];
+}

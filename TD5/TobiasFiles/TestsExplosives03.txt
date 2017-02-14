@@ -1,0 +1,20 @@
+group TestAssign004[us=true] {
+	Explosives e = new Explosives();
+	@storeIncomp{49,50};
+} 
+
+group storeProd{
+  e.add_assign(@bats,@prods);
+} 
+
+group storeIncomp{
+  e.add_incomp(@prods,@prods);
+} 
+
+group bats {
+values = ["Bat1", "Bart2"];
+}
+
+group prods {
+values = ["Prod1", "Prod2", "Prod3", "Prod4", "Prod5" ];
+}

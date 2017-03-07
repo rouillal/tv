@@ -1,14 +1,12 @@
 package com.example.hellomaven;
 
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Assume;
 import org.junit.contrib.theories.DataPoints;
 import org.junit.contrib.theories.Theories;
 import org.junit.contrib.theories.Theory;
 import org.junit.runner.RunWith;
-
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.*;
-
-import org.junit.Assume;
 
 @RunWith(Theories.class)
 public class AdditionWithTheoriesTest {

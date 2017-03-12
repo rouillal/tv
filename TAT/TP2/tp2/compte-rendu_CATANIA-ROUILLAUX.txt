@@ -12,19 +12,19 @@ Compte rendu TP2
 Contrôleur de chauffage :
 -------------------------
 
-Pour savoir si le chauffage doit être mis en route, nous utilisons une fonction 'updateOn'. Elle est appelé lors du constructeur et à chaque fois que l'on modifie TC.
+Pour savoir si le chauffage doit être mis en route, nous utilisons une fonction 'updateOn'. Elle est appelée lors du constructeur et à chaque fois que l'on modifie TC.
 
 
 Tests aléatoires :
 ------------------
 
-Pour les tests aléatoires, nous utilisons une variable booléénne nous permettant de connaître l'état du chauffage à la température précédente. Il faut aussi prendre en compte que le chauffage puisse se mettre en route ou s'éteindre, auquel cas, l'état du chauffage à la température précédente ne sera pas la même qu'à la température du moment.
+Pour les tests aléatoires, nous utilisons une variable booléenne nous permettant de connaître l'état du chauffage à la température précédente. Il faut aussi prendre en compte que le chauffage puisse se mettre en route ou s'éteindre, auquel cas, l'état du chauffage à la température précédente ne sera pas le même qu'à la température actuelle.
 
 
 Tests combinatoires :
 ---------------------
 
-Les tests permettant de savoir si les capteurs sont commutatifs ne sont pas optimals, étant donné qu'il n'y a que 3 capteurs, nous avons décidé d'écrire à la main chaque commutation possible.
+Les tests permettant de savoir si les capteurs sont commutatifs ne sont pas optimaux, étant donné qu'il n'y a que 3 capteurs, nous avons décidé d'écrire à la main chaque commutation possible.
 
 
 Bits de validité :
